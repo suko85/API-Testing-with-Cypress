@@ -1,0 +1,19 @@
+{
+    "article": {
+        "title": "Learning Cypress",
+        "slug": "learning-cypress-wok4im",
+        "body": "Wrote the article",
+        "createdAt": "2021-06-14T00:20:05.304Z",
+        "updatedAt": "2021-06-14T00:20:05.304Z",
+        "tagList": [],
+        "description": "Using URL related commands",
+        "author": {
+            "username": "a-onkar",
+            "bio": null,
+            "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
+            "following": false
+        },
+        "favorited": true,
+        "favoritesCount": 1
+    }
+}
