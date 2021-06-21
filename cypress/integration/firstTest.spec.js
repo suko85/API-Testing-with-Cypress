@@ -27,7 +27,7 @@ describe('Test with backend', () =>{
         })
     })
 
-    it.only('intercepting and modifying the request and response', () => {
+    it('intercepting and modifying the request and response', () => {
 
         // cy.intercept('POST', '**/articles', (req) => {
         //     req.body.article.description = "This is a description 2!"
@@ -89,6 +89,55 @@ describe('Test with backend', () =>{
         .eq(1)
         .click()
         .should('contain', '6')
+    })
+
+    it.only('delete a new article in a global feed', () =>{
+
+        const userCredentials = {
+            "user": {
+                "email": "sukoggu@gmail.com",
+                "password": "Gegu 1085"
+            }
+        } 
+        const bodyRequest = {
+            "article": {
+                "tagList": [],
+                "title": "Request from API",
+                "description": "API Testing is easy",
+                "body": "Angular is cool"
+            }
+        }
+        //getting the token from the response
+        cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+        .its('body').then(body =>{
+            const token = body.user.token
+           //sending the POST request to create the article passing header and parameters
+            cy.request({
+                url: 'https://conduit.productionready.io/api/articles/',
+                headers: {'Authorization': 'Token '+ token},
+                method: 'POST',
+                body: bodyRequest
+            }).then( response => {
+                expect(response.status).to.equal(200)   // checking that the POST was successfull
+            })
+
+            // going to the recently created article(the first one on the list) to delete it. 
+            cy.contains('Global Feed').click()
+            cy.get('.article-preview').first().click()
+            cy.get('.article-actions').contains('Delete Article').click() 
+
+            //getting the list of articles to make sure the deleted one is not present.
+            cy.request({
+                url: 'https://conduit.productionready.io/api/articles?limit=10&offset=0',
+                headers: { 'Authorization': 'Token '+ token},
+                method: 'GET'
+            }).its('body').then( body => {
+                expect(body.articles[0].title).not.equal('Request from API')
+            })
+
+
+        })
+
 
 
     })
