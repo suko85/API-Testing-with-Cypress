@@ -25,8 +25,29 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('loginToApplication', () =>{
-    cy.visit('/login')
-    cy.get('[placeholder="Email"]').type('sukoggu@gmail.com')
-    cy.get('[placeholder="Password"]').type('Gegu 1085')
-    cy.get('form').submit()
+
+    const userCredentials = {
+        "user": {
+            "email": "sukoggu@gmail.com",
+            "password": "Gegu 1085"
+        }
+    } 
+    cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+        .its('body').then( body => {
+            const token = body.user.token
+
+            cy.wrap(token).as('token')
+            //here is important visit the homepage(do not login page) because we assume we already authenticated.
+            cy.visit('/', {
+                //we need to provide an option to visit method (onBeforeLoad event) 
+                onBeforeLoad (win){   // <-- using window object
+                    win.localStorage.setItem('jwtToken', token) //getting the local storage and setting the item with the key and value
+                }
+            })
+        })
+
+    // cy.visit('/login')
+    // cy.get('[placeholder="Email"]').type('sukoggu@gmail.com')
+    // cy.get('[placeholder="Password"]').type('Gegu 1085')
+    // cy.get('form').submit()
 }) 
