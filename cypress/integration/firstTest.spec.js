@@ -68,7 +68,7 @@ describe('Test with backend', () =>{
         .and('contain', 'testing')
     })
 
-    it('verify global feed likes count', () => {
+    it.skip('verify global feed likes count', () => {
         cy.intercept({method:'GET', path:'articles/feed*'}, {"articles":[],"articlesCount":0})
         //This GET request for API '**/articles*', and the response for this request will be a 'fixture:articles.json'. 
         cy.intercept({method:'GET', path:'articles/feed*'}, {fixture:'articles.json'})
