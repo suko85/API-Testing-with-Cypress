@@ -4,7 +4,16 @@
   "description": "API Testing with Cypress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tests": "echo \"Error: no test specified\" && exit 1",
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build --prdo --base-href ./ && cp CNAME dist/CNAME",
+    "test": "ng test",
+    "lint": "ng lint --force",
+    "e2e": "ng e2e",
+    "cypress:run": "npx cypress run",
+    "cypress:e2e": "start-test start http-get://localhost:4200 cypress run"
+    
   },
   "keywords": [
     "QA",
