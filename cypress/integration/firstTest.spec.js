@@ -68,7 +68,7 @@ describe('Test with backend', () =>{
         .and('contain', 'testing')
     })
 
-    it('verify global feed likes count', () => {
+    it.skip('verify global feed likes count', () => {
         cy.intercept({method:'GET', path:'articles/feed*'}, {"articles":[],"articlesCount":0})
         //This GET request for API '**/articles*', and the response for this request will be a 'fixture:articles.json'. 
         cy.intercept({method:'GET', path:'articles/feed*'}, {fixture:'articles.json'})
@@ -91,14 +91,8 @@ describe('Test with backend', () =>{
         .should('contain', '6')
     })
 
-    it.only('delete a new article in a global feed', () =>{
+    it('delete a new article in a global feed', () =>{
 
-        const userCredentials = {
-            "user": {
-                "email": "sukoggu@gmail.com",
-                "password": "Gegu 1085"
-            }
-        } 
         const bodyRequest = {
             "article": {
                 "tagList": [],
@@ -107,10 +101,9 @@ describe('Test with backend', () =>{
                 "body": "Angular is cool"
             }
         }
-        //getting the token from the response
-        cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
-        .its('body').then(body =>{
-            const token = body.user.token
+        //getting the token from the alias saved in the login method
+            cy.get('@token').then(token =>{
+            
            //sending the POST request to create the article passing header and parameters
             cy.request({
                 url: 'https://conduit.productionready.io/api/articles/',
