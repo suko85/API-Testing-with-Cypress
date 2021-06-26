@@ -12,11 +12,21 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-/**
- * @type {Cypress.PluginConfig}
- */
-// eslint-disable-next-line no-unused-vars
+// promisified fs module
+const fs = require('fs-extra')
+const path = require('path')
+
+function getConfigurationByFile(file) {
+  const pathToConfigFile = path.resolve('cypress', 'config', `${file}.json`)  // <-- this is a path to our file: cypress/config/filename.json 
+  if(!fs.existsSync(pathToConfigFile)){  //if we dont have pathToConfigFile, we want to return and empty object
+    return {};
+  }
+
+  return fs.readJson(pathToConfigFile)
+}
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  //require('cypress-plugin-retries/lib/plugin')(on)
+  const file = config.env.configFile  // config.env.configFile || 'development' is setting development by default, but we dont have Dev.
+
+  return getConfigurationByFile(file)
 }
