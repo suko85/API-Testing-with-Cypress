@@ -106,7 +106,7 @@ describe('Test with backend', () =>{
             
            //sending the POST request to create the article passing header and parameters
             cy.request({
-                url: 'https://conduit.productionready.io/api/articles/',
+                url: Cypress.env('apiUrl')+'api/articles/',
                 headers: {'Authorization': 'Token '+ token},
                 method: 'POST',
                 body: bodyRequest
@@ -121,7 +121,7 @@ describe('Test with backend', () =>{
 
             //getting the list of articles to make sure the deleted one is not present.
             cy.request({
-                url: 'https://conduit.productionready.io/api/articles?limit=10&offset=0',
+                url: Cypress.env('apiUrl')+'api/articles?limit=10&offset=0',
                 headers: { 'Authorization': 'Token '+ token},
                 method: 'GET'
             }).its('body').then( body => {
