@@ -127,12 +127,7 @@ describe('Test with backend', () =>{
             }).its('body').then( body => {
                 expect(body.articles[0].title).not.equal('Request from API')
             })
-
-
         })
-
-
-
     })
 
 })
