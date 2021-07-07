@@ -1,5 +1,17 @@
 /// <reference types="cypress" />
 
+const runOn = (browser, fn) => {
+    if (Cypress.isBrowser(browser)){
+        fn()
+    }
+}
+
+const ignoreOn = (browser, fn) => {
+    if (!Cypress.isBrowser(browser)){
+        fn()
+    }
+}
+
 describe('Test with backend', () =>{
 
     beforeEach('login to the app', () => {
@@ -7,25 +19,29 @@ describe('Test with backend', () =>{
         cy.loginToApplication()
     })
 
-    it('verify correct request and response', () => {
+    ignoreOn('firefox', () => {
+        it('verify correct request and response', () => {
 
-        cy.intercept({method:'POST', path:'articles'}).as('postArticles') //here we save the result of the call to POST for '**/articles'
-                                                           // in postArticles object.
-        
-        cy.contains('New Article').click()
-        cy.get('[formcontrolname="title"]').type('This is a title!')
-        cy.get('[formcontrolname="description"]').type('This is a description!')
-        cy.get('[formcontrolname="body"]').type('This is a body of the article!')
-        cy.contains('Publish Article').click()
-
-        cy.wait('@postArticles') // waiting for postArticles will be done using '@'
-        cy.get('@postArticles').then( xhr => {
-            console.log(xhr)
-            expect(xhr.response.statusCode).to.equal(200)
-            expect(xhr.request.body.article.body).to.equal('This is a body of the article!')
-            expect(xhr.response.body.article.description).to.equal('This is a description!')
+            cy.intercept({method:'POST', path:'articles'}).as('postArticles') //here we save the result of the call to POST for '**/articles'
+                                                               // in postArticles object.
+            
+            cy.contains('New Article').click()
+            cy.get('[formcontrolname="title"]').type('This is a title!')
+            cy.get('[formcontrolname="description"]').type('This is a description!')
+            cy.get('[formcontrolname="body"]').type('This is a body of the article!')
+            cy.contains('Publish Article').click()
+    
+            cy.wait('@postArticles') // waiting for postArticles will be done using '@'
+            cy.get('@postArticles').then( xhr => {
+                console.log(xhr)
+                expect(xhr.response.statusCode).to.equal(200)
+                expect(xhr.request.body.article.body).to.equal('This is a body of the article!')
+                expect(xhr.response.body.article.description).to.equal('This is a description!')
+            })
         })
     })
+
+
 
     it('intercepting and modifying the request and response', () => {
 
