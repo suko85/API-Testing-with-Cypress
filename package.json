@@ -22,7 +22,7 @@
     "cy:run_browser": "npm run cy:run_spec -- --browser chrome & npm run cy:run_spec -- --browser firefox & npm run cy:run_spec -- --browser edge"
   },
   "keywords": [
-    "QA", 
+    "QA",
     "Automation",
     "Cypress",
     "API",
@@ -116,6 +116,7 @@
     "ts-node": "3.2.2",
     "tslint": "^5.7.0",
     "tslint-language-service": "^0.9.9",
-    "typescript": "3.4.5"
+    "typescript": "3.4.5",
+    "start-server-and-test": "1.12.6"
   }
 }
