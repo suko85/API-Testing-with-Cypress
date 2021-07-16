@@ -112,7 +112,7 @@ describe('Test with backend', () =>{
         const bodyRequest = {
             "article": {
                 "tagList": [],
-                "title": "Request from API",
+                "title": "My Request from API",
                 "description": "API Testing is easy",
                 "body": "Angular is cool"
             }
@@ -141,7 +141,7 @@ describe('Test with backend', () =>{
                 headers: { 'Authorization': 'Token '+ token},
                 method: 'GET'
             }).its('body').then( body => {
-                expect(body.articles[0].title).not.equal('Request from API')
+                expect(body.articles[0].title).not.equal('My Request from API')
             })
         })
     })
