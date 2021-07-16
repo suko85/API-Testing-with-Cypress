@@ -1,16 +1,16 @@
 {
   "stats": {
     "suites": 1,
-    "tests": 4,
-    "passes": 4,
+    "tests": 3,
+    "passes": 3,
     "pending": 1,
     "failures": -1,
-    "start": "2021-06-30T21:57:45.955Z",
-    "end": "2021-06-30T21:58:02.151Z",
-    "duration": 16196,
-    "testsRegistered": 5,
+    "start": "2021-07-14T14:43:22.008Z",
+    "end": "2021-07-14T14:43:38.167Z",
+    "duration": 16159,
+    "testsRegistered": 4,
     "passPercent": 100,
-    "pendingPercent": 20,
+    "pendingPercent": 25,
     "other": 1,
     "hasOther": true,
     "skipped": 1,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "8832697c-8668-4a5f-9b55-1fc12e44b9db",
+      "uuid": "9cae5eea-699e-44b6-9593-c36002bc1422",
       "title": "",
       "fullFile": "cypress/integration/firstTest.spec.js",
       "file": "cypress/integration/firstTest.spec.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "50c1e29b-1cd3-4a4c-8a01-e892297c40d2",
+          "uuid": "6ab76bcb-171d-46c0-bfe4-02f00c66a8e6",
           "title": "Test with backend",
           "fullFile": "",
           "file": "",
@@ -35,28 +35,10 @@
           "afterHooks": [],
           "tests": [
             {
-              "title": "verify correct request and response",
-              "fullTitle": "Test with backend verify correct request and response",
-              "timedOut": null,
-              "duration": 5768,
-              "state": "passed",
-              "speed": "slow",
-              "pass": true,
-              "fail": false,
-              "pending": false,
-              "context": null,
-              "code": "cy.intercept({\n  method: 'POST',\n  path: 'articles'\n}).as('postArticles'); //here we save the result of the call to POST for '**/articles'\n// in postArticles object.\ncy.contains('New Article').click();\ncy.get('[formcontrolname=\"title\"]').type('This is a title!');\ncy.get('[formcontrolname=\"description\"]').type('This is a description!');\ncy.get('[formcontrolname=\"body\"]').type('This is a body of the article!');\ncy.contains('Publish Article').click();\ncy.wait('@postArticles'); // waiting for postArticles will be done using '@'\ncy.get('@postArticles').then(xhr => {\n  console.log(xhr);\n  expect(xhr.response.statusCode).to.equal(200);\n  expect(xhr.request.body.article.body).to.equal('This is a body of the article!');\n  expect(xhr.response.body.article.description).to.equal('This is a description!');\n});",
-              "err": {},
-              "uuid": "44f3e8f8-8b00-4d48-808a-83ac4e136ff1",
-              "parentUUID": "50c1e29b-1cd3-4a4c-8a01-e892297c40d2",
-              "isHook": false,
-              "skipped": false
-            },
-            {
               "title": "intercepting and modifying the request and response",
               "fullTitle": "Test with backend intercepting and modifying the request and response",
               "timedOut": null,
-              "duration": 3410,
+              "duration": 7793,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -65,8 +47,8 @@
               "context": null,
               "code": "// cy.intercept('POST', '**/articles', (req) => {\n//     req.body.article.description = \"This is a description 2!\"\n// }).as('postArticles') //here we save the result of the call to POST for '**/articles'\n//                                                    // in postArticles object.\ncy.intercept('POST', '**/articles', req => {\n  req.reply(res => {\n    expect(res.body.article.description).to.equal('This is a description!');\n    res.body.article.description = \"This is a description 2!\";\n  });\n}).as('postArticles'); //here we save the result of the call to POST for '**/articles'\n// in postArticles object.\ncy.contains('New Article').click();\ncy.get('[formcontrolname=\"title\"]').type('This is a title!');\ncy.get('[formcontrolname=\"description\"]').type('This is a description!');\ncy.get('[formcontrolname=\"body\"]').type('This is a body of the article!');\ncy.contains('Publish Article').click();\ncy.wait('@postArticles'); // waiting for postArticles will be done using '@'\ncy.get('@postArticles').then(xhr => {\n  console.log(xhr);\n  expect(xhr.response.statusCode).to.equal(200);\n  expect(xhr.request.body.article.body).to.equal('This is a body of the article!');\n  expect(xhr.response.body.article.description).to.equal('This is a description 2!');\n});",
               "err": {},
-              "uuid": "12da8aa1-e58b-41c4-99d4-ce32535a9acf",
-              "parentUUID": "50c1e29b-1cd3-4a4c-8a01-e892297c40d2",
+              "uuid": "43c70eed-ce41-4bfa-88d0-15ded8ed9b65",
+              "parentUUID": "6ab76bcb-171d-46c0-bfe4-02f00c66a8e6",
               "isHook": false,
               "skipped": false
             },
@@ -74,7 +56,7 @@
               "title": "should gave tags with routing object",
               "fullTitle": "Test with backend should gave tags with routing object",
               "timedOut": null,
-              "duration": 1373,
+              "duration": 1639,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -83,8 +65,8 @@
               "context": null,
               "code": "cy.get('.tag-list').should('contain', 'cypress').and('contain', 'automation').and('contain', 'testing');",
               "err": {},
-              "uuid": "bc0b56c8-1191-46ef-aa4c-b3c62bb43058",
-              "parentUUID": "50c1e29b-1cd3-4a4c-8a01-e892297c40d2",
+              "uuid": "e61f09b6-317a-4c57-a025-90b02957acde",
+              "parentUUID": "6ab76bcb-171d-46c0-bfe4-02f00c66a8e6",
               "isHook": false,
               "skipped": false
             },
@@ -101,8 +83,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "8c53bcf0-ec54-4dd3-97d0-0b7ba8e6a5cc",
-              "parentUUID": "50c1e29b-1cd3-4a4c-8a01-e892297c40d2",
+              "uuid": "41ef2331-734a-4ee7-ac79-1ea69e902c13",
+              "parentUUID": "6ab76bcb-171d-46c0-bfe4-02f00c66a8e6",
               "isHook": false,
               "skipped": false
             },
@@ -110,34 +92,33 @@
               "title": "delete a new article in a global feed",
               "fullTitle": "Test with backend delete a new article in a global feed",
               "timedOut": null,
-              "duration": 5572,
+              "duration": 6557,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "const bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"Request from API\",\n    \"description\": \"API Testing is easy\",\n    \"body\": \"Angular is cool\"\n  }\n}; //getting the token from the alias saved in the login method\ncy.get('@token').then(token => {\n  //sending the POST request to create the article passing header and parameters\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200); // checking that the POST was successfull\n  }); // going to the recently created article(the first one on the list) to delete it. \n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //getting the list of articles to make sure the deleted one is not present.\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    expect(body.articles[0].title).not.equal('Request from API');\n  });\n});",
+              "code": "const bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"My Request from API\",\n    \"description\": \"API Testing is easy\",\n    \"body\": \"Angular is cool\"\n  }\n}; //getting the token from the alias saved in the login method\ncy.get('@token').then(token => {\n  //sending the POST request to create the article passing header and parameters\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200); // checking that the POST was successfull\n  }); // going to the recently created article(the first one on the list) to delete it. \n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click(); //getting the list of articles to make sure the deleted one is not present.\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    expect(body.articles[0].title).not.equal('My Request from API');\n  });\n});",
               "err": {},
-              "uuid": "aba9d986-3504-409a-91c2-af766ae08d74",
-              "parentUUID": "50c1e29b-1cd3-4a4c-8a01-e892297c40d2",
+              "uuid": "770feaf4-bae1-4edb-a9e1-e11fa290442e",
+              "parentUUID": "6ab76bcb-171d-46c0-bfe4-02f00c66a8e6",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "44f3e8f8-8b00-4d48-808a-83ac4e136ff1",
-            "12da8aa1-e58b-41c4-99d4-ce32535a9acf",
-            "bc0b56c8-1191-46ef-aa4c-b3c62bb43058",
-            "aba9d986-3504-409a-91c2-af766ae08d74"
+            "43c70eed-ce41-4bfa-88d0-15ded8ed9b65",
+            "e61f09b6-317a-4c57-a025-90b02957acde",
+            "770feaf4-bae1-4edb-a9e1-e11fa290442e"
           ],
           "failures": [],
           "pending": [
-            "8c53bcf0-ec54-4dd3-97d0-0b7ba8e6a5cc"
+            "41ef2331-734a-4ee7-ac79-1ea69e902c13"
           ],
           "skipped": [],
-          "duration": 16123,
+          "duration": 15989,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

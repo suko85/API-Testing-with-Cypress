@@ -15,11 +15,11 @@
     "prereport": "npm run delete:reports",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
-    "cypress:run": "npm run prereport && npx cypress run",
+    "cypress:run": "npm run prereport && npx cypress run --record --key ca9b5f89-6437-4a70-b982-8d190fe9b201 --parallel",
     "cypress:e2e": "start-test start http-get://localhost:4200 cypress:run; npm run junit-merge;npm run mochawesome:merge",
     "cypress:run_qa": "npx cypress run --env configFile=qa",
-    "cy:run_spec": "npx cypress run --spec 'cypress/integration/firstTest.spec.js' --headless",
-    "cy:run_browser": "npm run cy:run_spec -- --browser chrome & npm run cy:run_spec -- --browser firefox & npm run cy:run_spec -- --browser edge"
+    "cy:run_spec": "npx cypress run --spec 'cypress/integration/firstTest.spec.js' --headless --record --key ca9b5f89-6437-4a70-b982-8d190fe9b201",
+    "cy:run_browser": "npm run cy:run_spec -- --browser chrome --group Chrome --ci-build-id 2 & npm run cy:run_spec -- --browser firefox --group Firefox --ci-build-id 2"
   },
   "keywords": [
     "QA",
